@@ -20,20 +20,17 @@ const Map = ({lat, lon}) => {
     })
 
     // Viewport re-renders whenever latitude and longitude changes
-
     useEffect(() => {
-        const a = {...viewport}
-        a.latitude = lat
-        a.longitude = lon
-        setViewport(a)
-    }, [lon, lon])
+        setViewport({...viewport, latitude: lat, longitude: lon})
+    }, [lat, lon])
 
     return (
         <div className="map">
             <ReactMapGL
-            mapboxApiAccessToken={API_KEY}
+            mapboxAccessToken={API_KEY}
             {...viewport}
             onViewportChange={(viewport) => setViewport(viewport)}
+            key="mapbox"
             mapStyle="mapbox://styles/mapbox/streets-v11">
                 <Marker latitude={lat} longitude={lon}>
                     <div className="mark">

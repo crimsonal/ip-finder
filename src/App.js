@@ -12,10 +12,10 @@ function App() {
 
   // Fetching the API once the component is mounted
   useEffect(() => {
-    Axios.get('https://ipapi.co/json/').then((res) => {
+    Axios.get('http://ip-api.com/json/').then((res) => {
       setIpDetails(res.data)
-      setLat(res.data.latitude)
-      setLon(res.data.longitude)
+      setLat(res.data.lat)
+      setLon(res.data.lon)
     })
   }, [])
 
@@ -23,17 +23,20 @@ function App() {
     <>
       <h1 className="heading">IP Address Finder</h1>
       <div className="App">
-        <h4>What is my IPv4 address?</h4>
-        <h1 id="ip">{ipDetails.ip}</h1>
-        <h4>Approximate location: </h4>
+        <div className="left">
+          <h4>What is my IPv4 address?</h4>
+          <h1 id="ip">{ipDetails.query}</h1>
+          <h4>Approximate location: </h4>
 
-        <p>{ipDetails.city}, {ipDetails.region}, {ipDetails.country_name}</p>
+          <p>{ipDetails.city}, {ipDetails.regionName}, {ipDetails.country}</p>
 
-        <h4>Internet Service Provider (ISP):</h4>
+          <h4>Internet Service Provider (ISP):</h4>
 
-        <p>{ipDetails.org}</p>
+          <p>{ipDetails.org}</p>
+        </div>
+        <Map lat={lat} lon={lon} />
       </div>
-      <Map lat={lat} lon={lon} />
+      
     </>
   )
 }
